@@ -26,7 +26,13 @@
 }
 
 
-
+.idioma{
+  text-align: center !important;
+}
+.cursor_idioma{
+  font-size: 17px;
+  cursor: pointer;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
@@ -146,8 +152,8 @@ iframe {
 [ Contact ]*/
 
 .container-contact100 {
-  width: 100%;  
-  min-height: 100vh;
+  width: 100%;
+  min-height: 70vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -155,19 +161,19 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  padding: 15px;
-  background: #e08b48;
-  background: linear-gradient(-47deg, #fddece 0%, #e08b48 100%);
+  /* align-items: center; */
+  padding: 15px; 
+  background: linear-gradient(-360deg, #fddece 0%, #e98b41 100%);
   
 }
 
 .wrap-contact100 {
+  border-radius: 12px;  
   width: 500px;
+  height: 100%;
   background: #fff;
-  border-radius: 10px;
   overflow: hidden;
-  padding: 42px 55px 45px 55px;
+  padding: 10px 30px 45px 30px;
 }
 
 
@@ -181,11 +187,11 @@ iframe {
 .contact100-form-title {
   display: block;
   font-family: Poppins-Bold;
-  font-size: 39px;
+  font-size: 26px;
   color: #333333;
-  line-height: 1.2;
+  line-height: 1;
   text-align: center;
-  padding-bottom: 44px;
+  padding-bottom: 16px;
 }
 
 
@@ -196,9 +202,9 @@ iframe {
 .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid #d9d9d9;
-  padding-bottom: 13px;
-  margin-bottom: 27px;
+  /* border-bottom: 2px solid #d9d9d9; */
+  /* padding-bottom: 13px; */
+  margin-bottom: 14px;
 }
 
 .label-input100 {
@@ -344,14 +350,27 @@ textarea.input100 {
   transform: translateX(10px);
 }
 
-
+.navCategoria{
+  height: 30vh;
+}
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
 @media (max-width: 576px) {
   .wrap-contact100 {
-    padding: 72px 15px 65px 15px;
+    padding: 10px 10px 65px 10px;
   }
+  .navCategoria{
+    height: 28vh !important;
+  }
+  .container-contact100{
+    min-height: 72vh !important;
+  }
+  .logo_cartaqr{
+    width:20% !important;
+    margin-top: 15px;
+  }
+  
 }
 
 
@@ -421,8 +440,19 @@ textarea.input100 {
     visibility: visible;
     opacity: 1;
   }
+  .navCategoria{
+    height: 25vh;
+  }
+  .container-contact100{
+    min-height: 75vh;
+  }
 }
 
+
+.logo_cartaqr{
+  width:8%;
+  margin-top: 15px;
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -525,7 +555,7 @@ textarea.input100 {
   background: -webkit-linear-gradient(right, #00dbde, #fc00ff);
   background: -o-linear-gradient(right, #00dbde, #fc00ff);
   background: -moz-linear-gradient(right, #00dbde, #fc00ff);
-  background: linear-gradient(right, #00dbde, #fc00ff);
+  background: linear-gradient(to left, #00dbde, #fc00ff);
   color: white;
 }
 
@@ -534,7 +564,7 @@ textarea.input100 {
   background: -webkit-linear-gradient(right, #00dbde, #fc00ff);
   background: -o-linear-gradient(right, #00dbde, #fc00ff);
   background: -moz-linear-gradient(right, #00dbde, #fc00ff);
-  background: linear-gradient(right, #00dbde, #fc00ff);
+  background: linear-gradient(to left, #00dbde, #fc00ff);
   color: white;
 }
 

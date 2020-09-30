@@ -1,13 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2'
+import {Spinner} from 'react-bootstrap';
 
-
-const Login = () => {
+const Login = ({login, setLogin}) => {
     const initData = {
         heading: "Bienvenido!",
         content: "Mensaje de Bienvenida...",
         formHeading: "Iniciar Sesión",
         formContent: "Por favor, complete los siguientes campos con su correo electrónico y contraseña.     ",
         btnText: "Continuar"
+    }
+    const [loading, setLoading] = useState(false);
+    
+    const formSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        
+        //URL Desarrollo
+        const API = 'http://localhost:8000/post-login';
+        
+        const {cod_cliente, password} = e.target.elements;
+        
+        const dataSubmit = new FormData(); 
+        dataSubmit.append('cod_cliente', cod_cliente.value.trim());
+        dataSubmit.append('password', password.value.trim());
+                
+        if(cod_cliente !== '' && password !== ''){
+              
+            axios.post(API, dataSubmit).then(response => {
+                console.log(login)
+                if(response.data.cod_cliente){
+                    setLoading(false);
+                    console.log(response.data.cod_cliente)
+                    setLogin({
+                        type: 'LOGIN',
+                        payload: true
+                    });
+                    // return (
+                    //     window.location.href = `/cat/auth/dashboard/${response.data.cod_cliente}`
+                    //     )
+                }else{
+                    Swal.fire(
+                        'Cliente no encontrado',
+                        'Codigo de cliente o contraseña incorrecto(s).',
+                        'error'
+                    )
+                    setLoading(false);
+                }
+            });
+        }else{
+            Swal.fire(
+                'No puede continuar',
+                'Primero debe completar todos los campos',
+                'error'
+            );
+        }
     }
     return (
         <div className="homepage-5 accounts inner-pages">
@@ -26,7 +74,7 @@ const Login = () => {
                                 {/* Contact Box */}
                                 <div className="contact-box bg-white text-center rounded p-4 p-sm-5 mt-5 mt-lg-0 shadow-lg">
                                     {/* Contact Form */}
-                                    <form id="contact-form">
+                                    <form id="contact-form" onSubmit={formSubmit}>
                                         <div className="contact-top">
                                             <h3 className="contact-title">{initData.formHeading}</h3>
                                             <h5 className="text-secondary fw-3 py-3">{initData.formContent}</h5>
@@ -36,9 +84,9 @@ const Login = () => {
                                                 <div className="form-group">
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="input-group-text"><i className="fas fa-envelope-open" /></span>
+                                                            <span className="input-group-text"><i className="fas fa-user-shield" /></span>
                                                         </div>
-                                                        <input type="email" className="form-control" name="email" placeholder="E-mail" required="required" />
+                                                        <input type="text" className="form-control" name="cod_cliente" placeholder="Codigo de Cliente" required="required" />
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -51,7 +99,12 @@ const Login = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12">
-                                                <button className="btn btn-bordered w-100 mt-3 mt-sm-4" type="submit">{initData.btnText}</button>
+                                                {
+                                                    loading ? 
+                                                        <button className="btn btn-bordered w-100 mt-3 mt-sm-4" type="submit"><Spinner animation="border" /></button>
+                                                    :
+                                                        <button className="btn btn-bordered w-100 mt-3 mt-sm-4" type="submit">{initData.btnText}</button>
+                                                }
                                                 <div className="contact-bottom">
                                                     <span className="d-inline-block mt-3">Si no recuerda sus credenciales, favor contactarse con su administrador.</span>
                                                 </div>

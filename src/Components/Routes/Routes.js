@@ -8,17 +8,16 @@ import Home from '../Home/Home';
 import Cliente from '../Cliente/Cliente';
 
 
-const Routes = ({authenticated}) => {
-    authenticated = true;
+const Routes = ({login, setLogin}) => {
     return(
         <BrowserRouter>
             <Switch> 
-                <Route path='/' exact component={() => authenticated ? <Redirect to='/dashboard/:id'/> : <Redirect to='/cliente/:id' />} />
-                <Route path='/cliente/:id' exact component={Cliente} />
-                <Route path='/login' exact component={Login} />
-                <Route path='/dashboard/:id' exact component={() => authenticated ? <Dashboard /> : <Login />} />
-                <Route path='/company/:id' exact component={Company} />
-                <Route component={() => <Redirect to='/'/>} /> 
+                {/* <Route path='/' exact component={() => authenticated ? <Redirect to='/dashboard/:id'/> : <Redirect to='/' />} /> */}
+                <Route path='/cat/:id' exact component={Cliente} />
+                <Route path='/cat/auth/login' component={() => <Login login={login} setLogin={setLogin} />} />
+                <Route path='/cat/auth/dashboard/:id' component={Dashboard} />
+                {/* <Route path='/company/:id' exact component={Company} /> */}
+                <Route component={() => <Redirect to='/'/>} />
             </Switch>
         </BrowserRouter>
     )
