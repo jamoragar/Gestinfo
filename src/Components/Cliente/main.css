@@ -163,7 +163,6 @@ iframe {
   justify-content: center;
   /* align-items: center; */
   padding: 15px; 
-  background: linear-gradient(-360deg, #fddece 0%, #e98b41 100%);
   
 }
 
@@ -367,7 +366,7 @@ textarea.input100 {
     min-height: 72vh !important;
   }
   .logo_cartaqr{
-    width:20% !important;
+    height: 35% !important;
     margin-top: 15px;
   }
   
@@ -450,7 +449,7 @@ textarea.input100 {
 
 
 .logo_cartaqr{
-  width:8%;
+  height: 35%;
   margin-top: 15px;
 }
 

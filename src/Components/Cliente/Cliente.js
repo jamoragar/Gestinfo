@@ -86,7 +86,7 @@ const Cliente = () => {
                 <Helmet>
                     <title>{ dataCliente.info_cliente.nombre_cliente }</title>
                 </Helmet>
-                <nav className='navCategoria' style={{width: '100%', background:'#e98b41', color:'white'}}>
+                <nav className='navCategoria' style={{width: '100%', background:dataCliente.info_cliente.color_final ? dataCliente.info_cliente.color_final: '#e98b41', color:'white'}}>
                     <ul className="nav justify-content-center">
                         {final.map((idiomas, i) => {
                             return(
@@ -102,7 +102,9 @@ const Cliente = () => {
                         {dataCliente.info_cliente.nombre_cliente}   
                     </span>
                 </nav>
-                <div className="container-contact100">
+                <div className="container-contact100" style={
+                    {background:`linear-gradient(-360deg, ${dataCliente.info_cliente.color_inicial ? dataCliente.info_cliente.color_inicial : '#fddece'} 0%, ${dataCliente.info_cliente.color_final ? dataCliente.info_cliente.color_final : '#e98b41'} 100%)`}
+                    }>
                     <div className="wrap-contact100">
                         <form className="contact100-form validate-form">
                             <div className='idioma'>
