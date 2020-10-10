@@ -113,24 +113,26 @@ const Cliente = () => {
                             <br />
                             {
                                 catFiltrada.map((categoria, i) => {
-                                    if(categoria.tipo_categoria === 'archivo'){
-                                        return(
-                                            <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido" >
-                                                <button onClick={() => handleCategoria(categoria)} type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button>
-                                            </div>
-                                        )
-                                    }else if(categoria.tipo_categoria === 'url'){
-                                        return(
-                                            <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido">
-                                                <a href={categoria.url_externa}><button type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button></a>
-                                            </div>
-                                        )
-                                    }else{
-                                        return(
-                                            <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido">
-                                                <button onClick={() => handleCategoria(categoria)} type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button>
-                                            </div>
-                                        )
+                                    if(categoria.habilitado === 'ON'){
+                                        if(categoria.tipo_categoria === 'archivo'){
+                                            return(
+                                                <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido" >
+                                                    <button onClick={() => handleCategoria(categoria)} type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button>
+                                                </div>
+                                            )
+                                        }else if(categoria.tipo_categoria === 'url'){
+                                            return(
+                                                <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido">
+                                                    <a href={categoria.url_externa}><button type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button></a>
+                                                </div>
+                                            )
+                                        }else{
+                                            return(
+                                                <div key={i} className="wrap-input100 validate-input" data-validate="El nombre es requerido">
+                                                    <button onClick={() => handleCategoria(categoria)} type="button" className="btn btn-light btn-lg" style={{width: '100%', background: 'rgb(236 236 236)', color:'black'}}>{categoria.nombre_categoria}</button>
+                                                </div>
+                                            )
+                                        }
                                     }
                                 })
                             }
