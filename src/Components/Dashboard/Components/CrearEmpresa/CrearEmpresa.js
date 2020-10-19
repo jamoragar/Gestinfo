@@ -62,13 +62,17 @@ const CrearEmpresa = ({show, onHide}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Row>
-                        <Form.Group as={Col}>
-                            <Form.Label>Código Empresa:</Form.Label>
-                            <Form.Control name='cod_empresa' type="text" placeholder="código de la empresa." />
+                        <Form.Group>
+                            <Form.Label>Nombre:</Form.Label>
+                            <Form.Control name='nombre' type='text' placeholder="Nombre de la Empresa." />
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Código Cliente:</Form.Label>
-                            <Form.Control name='cod_cliente' type="text" placeholder="Código del cliente    ." />
+                            <Form.Control name='cod_cliente' type="text" placeholder="Código del cliente." />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Código Empresa:</Form.Label>
+                            <Form.Control name='cod_empresa' type="text" placeholder="código de la empresa." />
                         </Form.Group>
                     </Form.Row>
                     <Form.Group>
@@ -78,7 +82,7 @@ const CrearEmpresa = ({show, onHide}) => {
                     <Form.Group>
                         <Form.Label>Logo:</Form.Label>
                         <div className='custom-file' style={{ marginBottom: '12px' }}>
-                            <input type="file" className={'custom-file-input'} id="customFile" onChange={orientImage} accept="image/*" multiple />
+                            <input type="file" className={'custom-file-input'} id="customFile" onChange={orientImage} accept="image/*" />
                             <label className="custom-file-label" htmlFor="customFile">Buscar Imágen</label>
                         </div>
                         { /* Consultamos que existan elementos en el hook image, y despues recorremos este */

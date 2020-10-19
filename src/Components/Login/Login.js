@@ -15,10 +15,11 @@ const Login = ({login, setLogin}) => {
     
     const formSubmit = (e) => {
         e.preventDefault();
+        axios.defaults.withCredentials = true;
         setLoading(true);
         
         //URL Desarrollo
-        const API = 'http://localhost:8000/post-login';
+        const API = 'http://localhost:8000/login';
         
         const {cod_cliente, password} = e.target.elements;
         
@@ -28,27 +29,30 @@ const Login = ({login, setLogin}) => {
                 
         if(cod_cliente !== '' && password !== ''){
               
-            axios.post(API, dataSubmit).then(response => {
-                console.log(login)
-                if(response.data.cod_cliente){
-                    setLoading(false);
-                    console.log(response.data.cod_cliente)
-                    setLogin({
-                        type: 'LOGIN',
-                        payload: true
-                    });
-                    // return (
-                    //     window.location.href = `/cat/auth/dashboard/${response.data.cod_cliente}`
-                    //     )
-                }else{
-                    Swal.fire(
-                        'Cliente no encontrado',
-                        'Codigo de cliente o contraseña incorrecto(s).',
-                        'error'
-                    )
-                    setLoading(false);
-                }
-            });
+                axios.post(API, dataSubmit).then(res => {
+                    console.log(res.data);
+                })
+            // axios.post(API, dataSubmit).then(response => {
+            //     console.log(login)
+            //     if(response.data.cod_cliente){
+            //         setLoading(false);
+            //         console.log(response.data)
+            //         setLogin({
+            //             type: 'LOGIN',
+            //             payload: true
+            //         });
+            //         // return (
+            //         //     window.location.href = `/cat/auth/dashboard/${response.data.cod_cliente}`
+            //         //     )
+            //     }else{
+            //         Swal.fire(
+            //             'Cliente no encontrado',
+            //             'Codigo de cliente o contraseña incorrecto(s).',
+            //             'error'
+            //         )
+            //         setLoading(false);
+            //     }
+            // });
         }else{
             Swal.fire(
                 'No puede continuar',

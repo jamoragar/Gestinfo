@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const CrearCategoria = () => {
     const [buttonAceptarText, setButtonAceptarText] = useState(true);
-    const [checked, setChecked] = useState(false);
+    const [checkbox, setCheckBox] = useState('');
     const [files, setFiles] = useState(null);
     const [valorState, setValorState] = useState({value: 0});
 
@@ -17,8 +17,8 @@ const CrearCategoria = () => {
         console.log('reset form...')
         document.getElementById('myForm').reset();
     }
-    const handleChange = () => {
-        setChecked(!checked);
+    const handleChange = (e) => {  
+        setCheckBox(e);
     }
     const onFormSubmit = e => {
         e.preventDefault();
@@ -27,7 +27,7 @@ const CrearCategoria = () => {
         let formData = new FormData();
 
         if(idioma.value && nom_categoria.value){
-            if(!checked && files.length >= 1){
+            if(files.length >= 1){
 
                 formData.append('idioma', idioma.value);
                 formData.append('nombre_categoria', nom_categoria.value.trim());
@@ -36,7 +36,7 @@ const CrearCategoria = () => {
                 console.log(formData)
                 axios.post('http://127.0.0.1:8000/api/crear_categoria', formData)
                     .then(result => console.log(result))
-            }else if(checked && text_area_opcion.value != '' && valor_opcion.value != ''){
+            }else if(text_area_opcion.value != '' && valor_opcion.value != ''){
                 formData = {
                     idioma: idioma.value,
                     nombre_categoria: nom_categoria.value.trim(),
@@ -48,7 +48,7 @@ const CrearCategoria = () => {
                     .then(result => console.log(result))
             }else{
                 Swal.fire(
-                    'No se puede continuar1',
+                    'Un momento...',
                     'Debe completar todos los campos antes de continuar',
                     'error'
                 )
@@ -57,7 +57,7 @@ const CrearCategoria = () => {
             
         }else{
             Swal.fire(
-                'No se puede continuar2',
+                'Un momento...',
                 'Debe completar todos los campos antes de continuar',
                 'error'
             )
@@ -93,14 +93,15 @@ const CrearCategoria = () => {
                 <Form.Row>
                     <Form.Group as={Col}>
                         <Form.Label>Idioma:</Form.Label>
-                        <Form.Control name='idioma' as="select" defaultValue="Asignar Rol">
+                        <Form.Control name='idioma' type='text' placeholder='Ingrese el idioma.' />
+                        {/* <Form.Control name='idioma' as="select" defaultValue="Asignar Rol">
                             <option value='0'>Seleccionar...</option>
                             <option value='es'>Español</option>
                             <option value='en'>Inglés</option>
                             <option value='de'>Alemán</option>
                             <option value='pt'>Portugues</option>
                             <option value='fr'>Francés</option>
-                        </Form.Control>
+                        </Form.Control> */}
                     </Form.Group>
                     <Form.Group as={Col}>
                         <Form.Label>Nombre Categoría: </Form.Label>
@@ -110,55 +111,77 @@ const CrearCategoria = () => {
                 <Form.Group>
                     <Form.Check
                         inline
-                        checked={!checked}
                         name={`check_categoria`}
                         type={'radio'}
-                        id={`custom`}
+                        id={`file`}
                         label={`PDF / Imagen`}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e.target.id)}
                     />
                     <Form.Check
                         inline
-                        checked={checked}
                         name={`check_categoria`}
                         type={'radio'}
-                        id={`custom`}
+                        id={`option`}
                         label={`Opción`}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e.target.id)}
+                    />
+                    <Form.Check
+                        inline
+                        name={`check_categoria`}
+                        type={'radio'}
+                        id={`url`}
+                        label={`URL`}
+                        onChange={(e) => handleChange(e.target.id)}
                     />
                     <br />
                     <br />
-                    {
-                        checked ?
-                            (<>
-                            <Form.Group>
-                                <Form.Label>Opción:</Form.Label>
-                                <Form.Control as={'textarea'}  name='text_area_opcion' rows='5' />
-                            </Form.Group>
-                            <Form.Label>Valor:</Form.Label>
-                            <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <Form.Control type='text'  name='valor_opcion' aria-describedby="inputGroupPrepend" value={valorState['value']} onChange={onChange}/>
-                            </InputGroup>
-                            </>)
-                            :
-                            (<>
-                            <Form.Label>PDF / Imagen:</Form.Label>
-                            <Form.File 
-                                label="Click aquí para buscar archivo"
-                                data-browse="Buscar"
-                                custom
-                                onChange={orientFile}
-                            />
-                            {
-                                files ? <p>Nombre de Archivo: {files[0].name} - Tamaño: {formatFileSize(files[0].size, 2)}</p>
-                                :
-                                null
-                            }   
-                            </>)
-                    }
+                    {(() => {
+                        switch (checkbox){
+                            case 'url':
+                                return(
+                                    <>
+                                    <Form.Group>
+                                        <Form.Label>URL:</Form.Label>
+                                        <Form.Control type='text'  name='valor_url' placeholder='http://www...'/>
+                                    </Form.Group>
+                                    </>
+                                );
+                            case 'option':
+                                return(
+                                    <>
+                                    <Form.Group>
+                                        <Form.Label>Opción:</Form.Label>
+                                        <Form.Control as={'textarea'}  name='text_area_opcion' rows='5' />
+                                    </Form.Group>
+                                    <Form.Label>Valor:</Form.Label>
+                                    <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <Form.Control type='text'  name='valor_opcion' aria-describedby="inputGroupPrepend" value={valorState['value']} onChange={onChange}/>
+                                    </InputGroup>
+                                    </>
+                                )
+                            default:
+                                return  (
+                                    <>
+                                    <Form.Label>PDF / Imagen:</Form.Label>
+                                    <Form.File 
+                                        label="Click aquí para buscar archivo"
+                                        data-browse="Buscar"
+                                        custom
+                                        onChange={orientFile}
+                                    />
+                                    {
+                                        files ? <p>Nombre de Archivo: {files[0].name} - Tamaño: {formatFileSize(files[0].size, 2)}</p>
+                                        :
+                                        null
+                                    }   
+                                    </>
+                                );
+                        }
+                    })
+                    ()}
                 </Form.Group>
                 <br />
                 <br />
