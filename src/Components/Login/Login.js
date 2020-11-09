@@ -15,23 +15,34 @@ const Login = ({login, setLogin}) => {
     
     const formSubmit = (e) => {
         e.preventDefault();
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         setLoading(true);
         
         //URL Desarrollo
-        const API = 'http://localhost:8000/login';
+        const API = 'http://localhost:8000/api/login';
         
         const {cod_cliente, password} = e.target.elements;
         
-        const dataSubmit = new FormData(); 
-        dataSubmit.append('cod_cliente', cod_cliente.value.trim());
-        dataSubmit.append('password', password.value.trim());
+        const dataSubmit = {
+            'username': cod_cliente.value.trim(),
+            'password': password.value.trim()
+        };
+
                 
         if(cod_cliente !== '' && password !== ''){
-              
                 axios.post(API, dataSubmit).then(res => {
-                    console.log(res.data);
+                    setLoading(false);
+                    console.log(res);
+                }).catch(err => {
+                    setLoading(false);
+                    Swal.fire(
+                        'Credenciales Incorrectas',
+                        'Verifique su código de cliente y/o contraseña. Si el problema persiste, cominíquese con el administrador.',
+                        'error'
+                    )
+                    console.log(err)
                 })
+                    
             // axios.post(API, dataSubmit).then(response => {
             //     console.log(login)
             //     if(response.data.cod_cliente){
