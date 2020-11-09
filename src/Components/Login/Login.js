@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import { RouteComponentsProps} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import {Spinner} from 'react-bootstrap';
 
-const Login = ({login, setLogin}) => {
+const Login = (props) => {
     const initData = {
         heading: "Bienvenido!",
         content: "Mensaje de Bienvenida...",
@@ -22,7 +24,7 @@ const Login = ({login, setLogin}) => {
         const API = 'http://localhost:8000/api/login';
         
         const {cod_cliente, password} = e.target.elements;
-        
+        const cookies = new Cookies();
         const dataSubmit = {
             'username': cod_cliente.value.trim(),
             'password': password.value.trim()
@@ -32,7 +34,9 @@ const Login = ({login, setLogin}) => {
         if(cod_cliente !== '' && password !== ''){
                 axios.post(API, dataSubmit).then(res => {
                     setLoading(false);
-                    console.log(res);
+                    console.log(res.data.access_token);
+                    cookies.set('access_token', res.data.access_token, { path: '/' })
+                    props.history.push(`/cat/auth/dashboard/${dataSubmit.username}`)
                 }).catch(err => {
                     setLoading(false);
                     Swal.fire(
@@ -112,6 +116,10 @@ const Login = ({login, setLogin}) => {
                                                         <input type="password" className="form-control" name="password" placeholder="Contraseña" required="required" />
                                                     </div>
                                                 </div>
+                                                {/* <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                                    <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+                                                </div> */}
                                             </div>
                                             <div className="col-12">
                                                 {

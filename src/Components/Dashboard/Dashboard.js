@@ -10,9 +10,10 @@ import './Dashboard.css'
 
 const Dashboard = () => {
   let { id } = useParams();
+  console.log(id)
+
   return (
     <BrowserRouter>
-      <NavBar />
       <div className="sideNav">
         <ul className="sideNav-nav">
           <li className="sideNav-item">
