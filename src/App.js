@@ -5,12 +5,12 @@ import {useLogin} from './Components/Hooks/useLogin';
 
 
 
-function App() {
+function App(props) {
   const Login = useLogin();
 
   return (
     <div className="App">
-      <Routes {...Login}/>
+      <Routes {...props}/>
     </div>
   );
 }

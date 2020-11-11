@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import DataTable from 'react-data-table-component';
 import CrearEmpresa from '../CrearEmpresa/CrearEmpresa';
-import {Spinner, Button, Row} from 'react-bootstrap';
+import { Button, Row} from 'react-bootstrap';
 
 const MisClientes = () => {
     const [showAgregarClientes, setShowAgregarClientes] = useState(false);

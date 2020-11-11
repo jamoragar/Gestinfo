@@ -8,8 +8,8 @@ import './main.css';
 import './util.css';
 
 const Cliente = () => {
-    const API = 'http://localhost:8000/api/info-cliente';
-    // const API = 'https://www.cartaenqr.cl/api/info-cliente';
+    // const API = 'http://localhost:8000/api/info-cliente';
+    const API = 'https://www.cartaenqr.cl/api/api/info-cliente';
 
     const [dataCliente, setDataCliente] = useState([]);
     // const [loading, setLoading] = useState(false);
