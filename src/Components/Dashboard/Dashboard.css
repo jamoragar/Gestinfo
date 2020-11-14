@@ -1,6 +1,9 @@
 a{
     color: white !important;
 }
+.dashLogo{
+    padding: 100px 5px 0 5px ;
+}
 .sideNav{
     top:0;
     width: 6rem;
@@ -16,7 +19,7 @@ a{
 }
 .sideNav-nav{
     list-style: none;
-    padding: 140px 0 0 0;
+    padding: 100px 5px 0 5px;
     margin: 0 ;
     display: flex;
     flex-direction: column;
@@ -29,7 +32,8 @@ a{
     
 }
 .sideNav-item:last-child{
-    margin-top: auto;
+    position:absolute;
+    bottom: 0;
 }
 .sideNav-link{
     display: flex;
@@ -45,8 +49,20 @@ a{
     display: none;
     margin-left: 1rem;
 }
+.titulo_grande{
+    font-size: 24px !important;
+    font-weight: 900;
+}
+.titulo_mediano{
+    font-size: 18px !important;
+    font-weight: 500;
+}
+.link_tabla{
+    color: #4545ca !important;
+    font-weight: 500;
+}
 .sideNav:hover{
-    width: 16rem;
+    width: 18rem;
 }
 .sideNav:hover .link-text{
     display: block;
@@ -61,53 +77,4 @@ a:hover{
     color: #ffffff !important;
 }a:focus{
     color: #ffffff !important;
-}
-/* Pantallas pequeñas */
-@media only screen and (max-width: 600px){
-    .sideNav{
-        top:auto;
-        bottom: 0;
-        width: 100%;
-        height: 5rem;
-    }
-    .sideNav:hover{
-        width: 100%;
-    }
-    .sideNav-item:last-child{
-        margin-top: inherit;
-    }
-    .sideNav-link:hover{
-        background: inherit;
-    }
-    .sideNav-link i{
-        font-size: 1.4rem;
-        margin: 0 1.5rem;
-    }
-    .sideNav-nav{
-        flex-direction: row;
-    }
-    .sideNav-link{
-        justify-content: center;
-    }
-    main{
-        margin:0;
-    }
-    .sideNav:hover .link-text{
-        display: none;
-    }
-}
-
-/* Pantallas grandes */
-@media only screen and (min-width:600px){
-    .sideNav{
-        width: 6rem;
-        height: 100%;
-    }
-    .sideNav:hover{
-        width: 16rem;
-    }
-    
-    .sideNav:hover .link-text{
-        display: inline;
-    }
 }

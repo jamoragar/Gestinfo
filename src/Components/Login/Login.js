@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Swal from 'sweetalert2'
@@ -12,10 +12,10 @@ const Login = (props) => {
 
    const history = useHistory();
    const initData = {
-      heading: "Bienvenido!",
-      content: "Mensaje de Bienvenida...",
+      heading: "CARTA en QR",
+      content: "Back Office",
       formHeading: "Iniciar Sesión",
-      formContent: "Por favor, complete los siguientes campos con su correo electrónico y contraseña.     ",
+      formContent: "Complete los siguientes campos con su código QR y contraseña",
       btnText: "Continuar"
    }
    const [loading, setLoading] = useState(false);
@@ -37,27 +37,31 @@ const Login = (props) => {
          'username': cod_cliente.value.trim(),
          'password': password.value.trim()
       };
-      
-      
+
+
       if (cod_cliente !== '' && password !== '') {
-         
+
          axios.post(API + 'login', dataSubmit).then(res => {
-            
+
             setLoading(false);
-            
+
             console.log(res.data.access_token);
-            
+
             if(!chbxRemember){
                cookies.set('access_token', res.data.access_token, { path: '/' })
+               setTimeout(() => {
+                  history.go(0);
+               }, 1000);
                
-               history.push(`/cat/auth/dashboard/${dataSubmit.username}`)
             }else{
                let date = new Date();
                date.setTime(date.getTime() + (expiresAt * 60 * 1000));
                const options = { path: '/', expires: date };
+
                cookies.set('access_token', res.data.access_token, options);
-               
-               history.push(`/cat/auth/dashboard/${dataSubmit.username}`)
+               setTimeout(() => {
+                  history.go(0);
+               }, 1000);
             }
 
          }).catch(err => {
@@ -82,22 +86,26 @@ const Login = (props) => {
       }
    }
 
-   if(access_token){
+   const checkAccesToken = async (token) => {
       let config = {
          method: 'get',
          url: API + 'user',
-         headers: { 
-           'Authorization': 'Bearer ' + access_token
+         headers: {
+           'Authorization': 'Bearer ' + token
          }
       };
-       
-       axios(config).then((response) => {
+      return await axios(config);
+   }
+
+   if(access_token){
+      const data_token = checkAccesToken(access_token);
+      data_token.then(response => {
          if(response.data){
-            history.push(`/cat/auth/dashboard/${response.data.cod_cliente}`)
+            history.push(`/cat/auth/dashboard/${response.data.cod_cliente}`);
          }
-       }).catch((error) => {
-         console.log(error);
-       });
+      }).catch(err => {
+         console.log(err)
+      })
    }
 
    return (
@@ -129,7 +137,7 @@ const Login = (props) => {
                                           <div className="input-group-prepend">
                                              <span className="input-group-text"><i className="fas fa-user-shield" /></span>
                                           </div>
-                                          <input type="text" className="form-control" name="cod_cliente" placeholder="Codigo de Cliente" required="required" />
+                                          <input type="text" className="form-control" name="cod_cliente" placeholder="Código QR" required="required" />
                                        </div>
                                     </div>
                                     <div className="form-group">
@@ -155,7 +163,7 @@ const Login = (props) => {
                                           <button className="btn btn-bordered w-100 mt-3 mt-sm-4" type="submit">{initData.btnText}</button>
                                     }
                                     <div className="contact-bottom">
-                                       <span className="d-inline-block mt-3">Si no recuerda sus credenciales, favor contactarse con su administrador.</span>
+                                       <span className="d-inline-block mt-3">Si no recuerda sus credenciales, escriba al correo contacto@cartaenqr.cl</span>
                                     </div>
                                  </div>
                               </div>

@@ -115,6 +115,7 @@ const CrearCategoria = () => {
                         type={'radio'}
                         id={`file`}
                         label={`PDF / Imagen`}
+                        defaultChecked
                         onChange={(e) => handleChange(e.target.id)}
                     />
                     <Form.Check
